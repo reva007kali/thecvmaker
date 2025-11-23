@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\CvForm;
+use App\Livewire\CvDataForm;
 use Laravel\Fortify\Features;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\Password;
@@ -13,9 +13,23 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/cv-form', function () {
-    return view('cv-form');
-})->name('CV Form');
+Route::get('/create-cv', function () {
+    return redirect()->route('login');
+});
+
+Route::middleware('auth')->group(function () {
+
+    // Route::get('/choose-template', ChooseTemplatePage::class)
+    //     ->name('choose-template');
+
+    Route::get('/cv-form', function(){
+        return view('cv-form');
+    });
+
+    // Route::get('/my-cv', MyCvPreview::class)
+    //     ->name('my-cv');
+
+});
 
 Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google.redirect');
 Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('google.callback');
@@ -35,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
         ->middleware(
             when(
                 Features::canManageTwoFactorAuthentication()
-                    && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirmPassword'),
+                && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirmPassword'),
                 ['password.confirm'],
                 [],
             ),

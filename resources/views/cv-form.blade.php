@@ -32,15 +32,11 @@
 
 </head>
 
-<body class="font-lex antialiased">
+<body class="font-lex bg-accent relative antialiased">
 
-    <section class="grid lg:grid-cols-2 min-h-screen">
 
-        @livewire('cv-data-form')
 
-        @livewire('cv-preview')
-
-    </section>
+    @livewire('cv-data-form')
 
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
