@@ -53,7 +53,7 @@
                     <a class="hover:text-primary" href="">Contact</a>
                 </div>
                 <div>
-                    <a class="px-4 py-2 rounded-full bg-primary text-white" href="">Create CV</a>
+                    <a class="px-4 py-2 rounded-full bg-primary text-white" href="cv-form">Create CV</a>
                 </div>
             </div>
         </div>
@@ -79,9 +79,9 @@
                     you. <br>Elevated by smart AI and designed to make a strong first impression.”</p>
             </div>
             <div class="flex gap-x-5 w-fit mx-auto">
-                <a class=" px-5 py-3 rounded-full bg-primary backdrop-blur-md text-white border-2" href="">Create
+                <a class=" px-5 py-3 rounded-full bg-primary backdrop-blur-md text-white border-2" href="/login">Create
                     CV</a>
-                <a class=" px-5 py-3 rounded-full bg-white/50 backdrop-blur-md" href="">Explore Designs</a>
+                <a class=" px-5 py-3 rounded-full bg-white/50 backdrop-blur-md" href="/templates">Explore Designs</a>
             </div>
             <div>
 

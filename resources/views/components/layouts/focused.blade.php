@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name') }}</title>
+    <title>{{ $title ?? 'Isi CV' }}</title>
 
     <link rel="icon" href="/favicon2.png" sizes="any">
     <link rel="icon" href="/favicon2.png" type="image/svg+xml">
@@ -36,7 +36,7 @@
 
 
 
-    @livewire('cv-data-form')
+    {{ $slot }}
 
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>

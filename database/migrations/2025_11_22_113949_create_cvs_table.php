@@ -15,7 +15,7 @@ return new class extends Migration {
             // Relasi user
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             
-            $table->string('template')->nullable();
+            $table->foreignId('template_id')->constrained('templates');
             $table->string('cv_photo')->nullable();
             $table->string('first_name');
             $table->string('last_name')->nullable();

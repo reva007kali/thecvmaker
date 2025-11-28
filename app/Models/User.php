@@ -26,6 +26,44 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+
+    /**
+     * Logic Otomatis saat User Dibuat
+     */
+    protected static function booted()
+    {
+        static::creating(function ($user) {
+            // Hanya generate jika username belum diisi
+            if (empty($user->username)) {
+                $user->username = self::generateUniqueUsername($user->name);
+            }
+        });
+    }
+    /**
+     * Algoritma Generator Username Unik
+     */
+    public static function generateUniqueUsername($name)
+    {
+        // 1. Ubah nama jadi slug (contoh: "Budi Santoso" -> "budi-santoso")
+        $slug = Str::slug($name);
+
+        // Jika nama kosong (jarang terjadi), kasih default
+        if (empty($slug)) {
+            $slug = 'user-' . Str::random(5);
+        }
+
+        // 2. Cek apakah username ini sudah ada di database?
+        $originalSlug = $slug;
+        $count = 1;
+
+        // Loop: Selama username masih ada di DB, tambahkan angka
+        while (User::where('username', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count; // budi-santoso-1, budi-santoso-2
+            $count++;
+        }
+
+        return $slug;
+    }
     protected $hidden = [
         'password',
         'two_factor_secret',
@@ -56,6 +94,11 @@ class User extends Authenticatable
             ->take(2)
             ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+    public function portfolios()
+    {
+        return $this->hasMany(Portfolio::class)->latest();
     }
 
     public function cv()

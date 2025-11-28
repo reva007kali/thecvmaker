@@ -9,47 +9,20 @@
             @csrf
 
             <!-- Name -->
-            <flux:input
-                name="name"
-                :label="__('Name')"
-                type="text"
-                required
-                autofocus
-                autocomplete="name"
-                :placeholder="__('Full name')"
-            />
+            <flux:input name="name" :label="__('Name')" type="text" required autofocus autocomplete="name"
+                :placeholder="__('Full name')" />
 
             <!-- Email Address -->
-            <flux:input
-                name="email"
-                :label="__('Email address')"
-                type="email"
-                required
-                autocomplete="email"
-                placeholder="email@example.com"
-            />
+            <flux:input name="email" :label="__('Email address')" type="email" required autocomplete="email"
+                placeholder="email@example.com" />
 
             <!-- Password -->
-            <flux:input
-                name="password"
-                :label="__('Password')"
-                type="password"
-                required
-                autocomplete="new-password"
-                :placeholder="__('Password')"
-                viewable
-            />
+            <flux:input name="password" :label="__('Password')" type="password" required autocomplete="new-password"
+                :placeholder="__('Password')" viewable />
 
             <!-- Confirm Password -->
-            <flux:input
-                name="password_confirmation"
-                :label="__('Confirm password')"
-                type="password"
-                required
-                autocomplete="new-password"
-                :placeholder="__('Confirm password')"
-                viewable
-            />
+            <flux:input name="password_confirmation" :label="__('Confirm password')" type="password" required
+                autocomplete="new-password" :placeholder="__('Confirm password')" viewable />
 
             <div class="flex items-center justify-end">
                 <flux:button type="submit" variant="primary" class="w-full">
@@ -62,5 +35,10 @@
             <span>{{ __('Already have an account?') }}</span>
             <flux:link :href="route('login')" wire:navigate>{{ __('Log in') }}</flux:link>
         </div>
+        <a href="{{ route('google.redirect') }}"
+            class="flex items-center justify-center gap-2 bg-white border border-gray-300 px-4 py-2 rounded-lg font-medium shadow-sm hover:bg-gray-50 transition">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5">
+            <span class="text-black">Register with Google</span>
+        </a>
     </div>
 </x-layouts.auth>

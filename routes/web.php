@@ -2,8 +2,11 @@
 
 use App\Livewire\CvDataForm;
 use Laravel\Fortify\Features;
+use App\Livewire\Actions\Logout;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\Password;
+use App\Livewire\App\CvBuilder\Form;
+use App\Livewire\App\Dashboard\Home;
 use App\Livewire\Settings\TwoFactor;
 use App\Livewire\Settings\Appearance;
 use Illuminate\Support\Facades\Route;
@@ -17,26 +20,28 @@ Route::get('/create-cv', function () {
     return redirect()->route('login');
 });
 
-Route::middleware('auth')->group(function () {
+Route::post('/logout', Logout::class)->name('logout');
 
-    // Route::get('/choose-template', ChooseTemplatePage::class)
-    //     ->name('choose-template');
+Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::get('/cv-form', function(){
-        return view('cv-form');
-    });
+    Route::get('/cv-form', Form::class)->name('cv.form');
 
-    // Route::get('/my-cv', MyCvPreview::class)
-    //     ->name('my-cv');
+    Route::get('/dashboard', Home::class)->name('dashboard');
+
+    // Route::get('/checkout/{plan}', \App\Livewire\App\Payment\Checkout::class)->name('payment.checkout');
+
+    // Route::get('/cv-form', function () {
+    //     return view('cv-form');
+    // });
 
 });
 
 Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google.redirect');
 Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('google.callback');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+// Route::view('dashboard', 'dashboard')
+//     ->middleware(['auth', 'verified'])
+//     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
