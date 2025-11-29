@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\CvDataForm;
+use App\Livewire\Public\LandingPage;
 use Laravel\Fortify\Features;
 use App\Livewire\Actions\Logout;
 use App\Livewire\Settings\Profile;
@@ -12,9 +13,8 @@ use App\Livewire\Settings\Appearance;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleController;
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', LandingPage::class)->name('public.landing.page');
+
 
 Route::get('/create-cv', function () {
     return redirect()->route('login');
