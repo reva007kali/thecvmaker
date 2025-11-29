@@ -1,3 +1,7 @@
+@props([
+    'label' => null,
+    'withDay' => true,
+])
 
 
 <div x-data="{
