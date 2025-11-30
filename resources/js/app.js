@@ -31,39 +31,3 @@ window.addEventListener("load", () => {
         }
     }, 400); 
 });
-
-document.addEventListener("DOMContentLoaded", function () {
-    const popup = document.getElementById('translate-popup');
-    const btnTranslate = document.getElementById('btn-translate');
-    const btnClose = document.getElementById('btn-close-popup');
-
-    const browserLang = navigator.language || navigator.userLanguage;
-
-    // tampilkan popup jika browser bukan Indonesia
-    if (!browserLang.startsWith('id')) {
-        setTimeout(() => popup.classList.remove('hidden'), 400);
-    }
-
-    // tombol close
-    btnClose.addEventListener("click", () => {
-        popup.classList.add('hidden');
-    });
-
-    // tombol translate
-    btnTranslate.addEventListener("click", () => {
-        // jalankan Google Translate
-        const interval = setInterval(() => {
-            const frame = document.querySelector('iframe.goog-te-menu-frame');
-            if (!frame) return;
-
-            const innerDoc = frame.contentDocument || frame.contentWindow.document;
-            const idButton = innerDoc.querySelector('a[lang="id"]');
-
-            if (idButton) {
-                idButton.click();
-                clearInterval(interval);
-                popup.classList.add('hidden');
-            }
-        }, 300);
-    });
-});

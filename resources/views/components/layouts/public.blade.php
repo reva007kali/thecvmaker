@@ -41,29 +41,6 @@
 
     {{ $slot }}
 
-    <div id="google_translate_element" style="display: none;"></div>
-    <div id="translate-popup" class="neo-popup hidden">
-        <div class="neo-inner">
-            <h3>Translate to Indonesian?</h3>
-            <p>Halaman ini berbahasa Inggris. Mau diubah ke Bahasa Indonesia?</p>
-
-            <div class="neo-actions">
-                <button id="btn-translate" class="neo-btn translate">Terjemahkan</button>
-                <button id="btn-close-popup" class="neo-btn close">Tidak perlu</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'id,en',
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-    </script>
-
 
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
