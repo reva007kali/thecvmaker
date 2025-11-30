@@ -11,15 +11,12 @@
     <link rel="icon" href="/favicon2.png" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-    <!-- Fonts -->
+    <!-- Fonts: Space Grotesk (Display) & Plus Jakarta Sans (Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-
-    {{-- icons --}}
-    <script src="https://unpkg.com/feather-icons"></script>
 
 
     {{-- vite style --}}
@@ -38,10 +35,9 @@
 
     {{ $slot }}
 
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script>
-        feather.replace();
+        lucide.createIcons();
     </script>
 </body>
 

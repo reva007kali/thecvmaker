@@ -13,13 +13,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Layout; // Import ini
 
-#[Layout('components.layouts.focused')] 
+#[Layout('components.layouts.focused')]
 #[Title('Lengkapi CV Anda')]
 class Form extends Component
 {
-     use WithFileUploads;
+    use WithFileUploads;
 
     public bool $isSubmitted = false;
+
 
     // Wizard state
     public $currentStep = 1;
@@ -505,6 +506,28 @@ class Form extends Component
     }
     public function render()
     {
-        return view('livewire.app.cv-builder.form');
+        // 1. Definisi Data Steps (Logic dipindah ke sini)
+        $steps = [
+            1 => ['label' => 'Identity', 'icon' => 'user'],
+            2 => ['label' => 'Education', 'icon' => 'book-open'],
+            3 => ['label' => 'Skills', 'icon' => 'cpu'],
+            4 => ['label' => 'Achievements', 'icon' => 'award'],
+            5 => ['label' => 'Experience', 'icon' => 'anchor'],
+            6 => ['label' => 'Finalize', 'icon' => 'check-square'],
+        ];
+
+        // 2. Logika Matematika Progress
+        $totalSteps = count($steps);
+
+        // Mencegah pembagian dengan nol jika steps < 1
+        $percentage = $totalSteps > 1
+            ? round((($this->currentStep - 1) / ($totalSteps - 1)) * 100)
+            : 0;
+
+        return view('livewire.app.cv-builder.form', [
+            'steps' => $steps,
+            'totalSteps' => $totalSteps,
+            'percentage' => $percentage,
+        ]);
     }
 }

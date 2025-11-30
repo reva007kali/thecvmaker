@@ -1,41 +1,69 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const menuBtn = document.getElementById("mobile-menu-btn");
-    const mobileMenu = document.getElementById("mobile-menu");
-    const menuIcon = menuBtn.querySelector("i");
+import AOS from "aos";
+import "aos/dist/aos.css";
 
-    // Fungsi Toggle
-    menuBtn.addEventListener("click", () => {
-        // Toggle class hidden
-        mobileMenu.classList.toggle("hidden");
 
-        // Ganti Icon (Menu <-> X)
-        const isHidden = mobileMenu.classList.contains("hidden");
-        if (!isHidden) {
-            // Jika menu terbuka, ganti icon jadi X
-            menuIcon.setAttribute("data-feather", "x");
-            // Efek background tombol jadi pink biar beda
-            menuBtn.classList.remove("bg-neo-blue");
-            menuBtn.classList.add("bg-neo-pink");
+// --- LOGIKA SPLASH SCREEN & AOS ---
+window.addEventListener("load", () => {
+    // ... (Kode splash screen kamu yang lama tetap sama) ...
+    const textElement = document.getElementById("splash-text");
+    const splash = document.getElementById("splash");
+    
+    if (!splash || !textElement) {
+        AOS.init({ offset: 50, duration: 800, easing: "ease-out-cubic" });
+        return; 
+    }
+
+    const texts = ["loading assets...", "aligning pixels...", "optimizing vibe...", "let's go."];
+    let index = 0;
+
+    const interval = setInterval(() => {
+        index++;
+        if (index < texts.length) {
+            textElement.innerText = texts[index];
         } else {
-            // Jika menu tertutup, balikin jadi Menu hamburger
-            menuIcon.setAttribute("data-feather", "menu");
-            // Balikin warna tombol
-            menuBtn.classList.remove("bg-neo-pink");
-            menuBtn.classList.add("bg-neo-blue");
+            clearInterval(interval);
+            splash.classList.add("hidden-splash");
+            setTimeout(() => {
+                splash.style.display = "none";
+                AOS.init({ once: false, offset: 50, duration: 800, easing: "ease-out-cubic" });
+                setTimeout(() => AOS.refresh(), 100);
+            }, 800); 
         }
+    }, 400); 
+});
 
-        // Render ulang feather icon karena atribut berubah
-        feather.replace();
+document.addEventListener("DOMContentLoaded", function () {
+    const popup = document.getElementById('translate-popup');
+    const btnTranslate = document.getElementById('btn-translate');
+    const btnClose = document.getElementById('btn-close-popup');
+
+    const browserLang = navigator.language || navigator.userLanguage;
+
+    // tampilkan popup jika browser bukan Indonesia
+    if (!browserLang.startsWith('id')) {
+        setTimeout(() => popup.classList.remove('hidden'), 400);
+    }
+
+    // tombol close
+    btnClose.addEventListener("click", () => {
+        popup.classList.add('hidden');
     });
 
-    // Opsional: Tutup menu saat link diklik
-    mobileMenu.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-            mobileMenu.classList.add("hidden");
-            menuIcon.setAttribute("data-feather", "menu");
-            menuBtn.classList.remove("bg-neo-pink");
-            menuBtn.classList.add("bg-neo-blue");
-            feather.replace();
-        });
+    // tombol translate
+    btnTranslate.addEventListener("click", () => {
+        // jalankan Google Translate
+        const interval = setInterval(() => {
+            const frame = document.querySelector('iframe.goog-te-menu-frame');
+            if (!frame) return;
+
+            const innerDoc = frame.contentDocument || frame.contentWindow.document;
+            const idButton = innerDoc.querySelector('a[lang="id"]');
+
+            if (idButton) {
+                idButton.click();
+                clearInterval(interval);
+                popup.classList.add('hidden');
+            }
+        }, 300);
     });
 });

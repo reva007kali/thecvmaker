@@ -1,34 +1,202 @@
-.animate-float {
-    animation: float 4s ease-in-out infinite;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0);
+@keyframes scroll-left {
+    from {
+        transform: translateX(0);
     }
-    50% {
-        transform: translateY(-10px);
-    }
-    100% {
-        transform: translateY(0);
+    to {
+        transform: translateX(-50%);
     }
 }
+@keyframes scroll-right {
+    from {
+        transform: translateX(-50%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+.animate-scroll-left {
+    animation: scroll-left 40s linear infinite;
+    width: max-content; /* PENTING agar konten tidak terpotong */
+}
+.animate-scroll-right {
+    animation: scroll-right 40s linear infinite;
+    width: max-content;
+}
+/* Splash Screen */
+.splash-screen {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.splash-screen.hidden-splash {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}
 
-/* Styling Custom Scrollbar agar lebih tipis & rapi */
+/* Swiss Grid Lines */
+.grid-line-y {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #e5e5e5;
+}
+
+/* Marquee Animation */
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+.marquee-content {
+    animation: scroll 20s linear infinite;
+}
+
+/* Magnetic Button Effect */
+.magnetic-btn {
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ctm scrollbar */
+/* container yang ingin diberi scrollbar kustom */
+.custom-scrollbar {
+    position: relative;
+    overflow: auto;
+    /* opsi estetika */
+    scrollbar-width: thin; /* Firefox (thin) */
+    --scrollbar-thumb-color: 34, 34, 34; /* RGB tanpa alpha */
+    --scrollbar-track-color: 240, 240, 240; /* RGB tanpa alpha */
+    --thumb-opacity: 0; /* default hidden */
+    --thumb-hover-opacity: 0.95; /* saat hover/scroll */
+    --thumb-width: 8px; /* ketebalan visual */
+}
+
+/* WebKit browsers (Chrome, Edge, Safari) */
 .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
+    width: var(--thumb-width);
+    height: var(--thumb-width);
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
+    background: rgba(var(--scrollbar-track-color), 0); /* transparan track */
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #cbd5e1;
-    border-radius: 20px;
+    border-radius: 999px;
+    background: rgba(var(--scrollbar-thumb-color), var(--thumb-opacity));
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04) inset; /* subtle edge */
+    transition: background 220ms linear, opacity 220ms linear;
+    border: 2px solid transparent; /* buat ruang supaya terlihat tipis */
+    background-clip: padding-box;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: #94a3b8;
+/* Saat hover di area scrollbar, tampilkan lebih jelas */
+.custom-scrollbar:hover::-webkit-scrollbar-thumb,
+.custom-scrollbar.scrolling::-webkit-scrollbar-thumb {
+    background: rgba(var(--scrollbar-thumb-color), var(--thumb-hover-opacity));
 }
 
+/* Firefox: warna scrollbar; note: animasi di Firefox terbatas */
+.custom-scrollbar {
+    scrollbar-color: rgba(var(--scrollbar-thumb-color), var(--thumb-opacity))
+        transparent;
+}
+
+/* Hover & scrolling state untuk Firefox */
+.custom-scrollbar.scrolling {
+    scrollbar-color: rgba(
+            var(--scrollbar-thumb-color),
+            var(--thumb-hover-opacity)
+        )
+        transparent;
+}
+
+/* Opsional: sedikit padding agar konten nggak terlalu rapet dengan edge */
+.custom-scrollbar.demo {
+    max-height: 400px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+}
+/* --- POPUP LAYER --- */
+.neo-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    backdrop-filter: blur(3px);
+    transition: opacity 0.25s ease;
+}
+
+.neo-popup.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --- POPUP BOX --- */
+.neo-inner {
+    background: #ffffff;
+    border: 3px solid #000;
+    padding: 24px 28px;
+    width: 320px;
+    border-radius: 6px;
+    box-shadow: 6px 6px 0 #000;
+    animation: neoPop 0.35s cubic-bezier(0.16, 1.1, 0.3, 1);
+    font-family: "Inter", sans-serif;
+}
+
+.neo-inner h3 {
+    margin-bottom: 6px;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.neo-inner p {
+    margin-bottom: 18px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* --- BUTTONS --- */
+.neo-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.neo-btn {
+    flex: 1;
+    padding: 10px 14px;
+    border: 3px solid #000;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.12s ease;
+    box-shadow: 4px 4px 0 #000;
+}
+
+.neo-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #000;
+}
+
+.neo-btn.translate {
+    background: #ff2a2a;
+    color: #fff;
+}
+
+.neo-btn.close {
+    background: #f5f5f5;
+}
+
+/* --- ANIMATION --- */
+@keyframes neoPop {
+    0% {
+        transform: scale(0.8) translateY(15px);
+    }
+    100% {
+        transform: scale(1) translateY(0);
+    }
+}

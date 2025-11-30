@@ -13,18 +13,18 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 
-    <!-- Fonts: Space Grotesk (Tech Headings) & Inter (Body) -->
+    <!-- Fonts: Space Grotesk (Display) & Plus Jakarta Sans (Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <!-- Feather Icons -->
-    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- GSAP for Award-Winning Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     {{-- vite style --}}
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/style.css'])
@@ -36,24 +36,38 @@
 
 </head>
 
-<body
-    class="font-lex antialiased text-slate-800 bg-slate-50 overflow-x-hidden selection:bg-primary selection:text-white">
+<body class="bg-swiss-white text-swiss-black font-sans antialiased selection:bg-accent-blue selection:text-white"
+    x-data="{ mobileMenu: false }">
 
     {{ $slot }}
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <div id="google_translate_element" style="display: none;"></div>
+    <div id="translate-popup" class="neo-popup hidden">
+        <div class="neo-inner">
+            <h3>Translate to Indonesian?</h3>
+            <p>Halaman ini berbahasa Inggris. Mau diubah ke Bahasa Indonesia?</p>
+
+            <div class="neo-actions">
+                <button id="btn-translate" class="neo-btn translate">Terjemahkan</button>
+                <button id="btn-close-popup" class="neo-btn close">Tidak perlu</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        feather.replace();
-        AOS.init({
-            once: true,
-            duration: 600,
-            offset: 50,
-            easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)' // Bouncy effect
-        });
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'id,en',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
 
-        // Simple accordion logic for mobile menu and faq (inline onclick used for simplicity)
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
     </script>
 </body>
 

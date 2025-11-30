@@ -1,260 +1,297 @@
-{{-- STEP 2: Education & Experience --}}
 @if ($currentStep == 2)
-    <div>
-        <h3 class="text-2xl font-semibold text-gray-800 mb-6">Education & Work Experience</h3>
+    <div class="animate-fade-in-up space-y-12">
 
+        <!-- HEADER SECTION -->
+        <div class="border-b-2 border-black pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+                <h3 class="font-display text-4xl font-bold uppercase tracking-tighter text-black leading-none">
+                    History
+                </h3>
+                <p
+                    class="font-mono text-sm text-gray-500 mt-2 bg-yellow-300 inline-block px-2 border border-black shadow-[2px_2px_0px_0px_black]">
+                    Step 02: Education & Work
+                </p>
+            </div>
+            <div class="text-right hidden md:block">
+                <p class="text-xs font-mono text-gray-400">Chronological Order Recommended.</p>
+                <p class="text-xs font-mono text-gray-400">Be precise.</p>
+            </div>
+        </div>
 
+        {{-- ===================================================
+         SECTION 1: EDUCATION
+         =================================================== --}}
+        <div>
+            {{-- Section Header --}}
+            <div class="flex justify-between items-end mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-black text-white flex items-center justify-center border-2 border-black">
+                        <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="font-display text-2xl font-bold uppercase">Education</h4>
+                </div>
 
-        {{-- Education Section --}}
-        <div class="mb-8">
-            <div class="flex justify-between items-center mb-4">
-                <h4 class="text-xl font-semibold text-gray-700">Education</h4>
                 <button type="button" wire:click="addEducation"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                    Add Education
+                    class="group flex items-center gap-2 px-4 py-2 bg-white border-2 border-black text-xs font-mono font-bold uppercase hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_black] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                    <span>Add New</span>
                 </button>
             </div>
 
-            <div class="space-y-3">
+            {{-- Empty State --}}
+            @if (count($educations) === 0)
+                <div class="border-2 border-black border-dashed bg-gray-50 p-8 text-center">
+                    <p class="font-mono text-sm text-gray-500 mb-2">No education added yet.</p>
+                    <p class="font-mono text-xs text-gray-400">Click "Add New" to list your degrees.</p>
+                </div>
+            @endif
+
+            {{-- Education List (Accordion) --}}
+            <div class="space-y-4">
                 @foreach ($educations as $index => $education)
                     <div x-data="{
                         expanded: {{ empty($education['school']) ? 'true' : 'false' }},
                         schoolName: @entangle("educations.{$index}.school")
-                    }"
-                        class="border border-gray-200 rounded-lg bg-white shadow-sm overflow-hidden transition-all duration-200"
-                        :class="expanded ? 'ring-2 ring-blue-500 ring-opacity-50' : 'hover:border-blue-300'">
+                    }" class="border-2 border-black bg-white transition-all duration-200"
+                        :class="expanded ? 'shadow-[8px_8px_0px_0px_black] -translate-y-1' :
+                            'hover:shadow-[4px_4px_0px_0px_black] hover:-translate-y-[2px]'">
 
-                        {{-- HEADER ACCORDION (Klik disini untuk buka/tutup) --}}
+                        {{-- ACCORDION HEADER --}}
                         <div @click="expanded = !expanded"
-                            class="flex justify-between items-center p-4 cursor-pointer bg-gray-50 hover:bg-gray-100 transition select-none">
+                            class="flex justify-between items-center p-4 cursor-pointer select-none group"
+                            :class="expanded ? 'bg-black text-white border-b-2 border-black' : 'bg-white text-black'">
 
-                            <div class="flex items-center gap-3">
-                                {{-- Icon Chevron (Berputar saat dibuka) --}}
-                                <svg class="w-5 h-5 text-gray-500 transition-transform duration-200"
-                                    :class="expanded ? 'transform rotate-180' : ''" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7"></path>
-                                </svg>
+                            <div class="flex items-center gap-4">
+                                {{-- Chevron --}}
+                                <div class="transition-transform duration-200" :class="expanded ? 'rotate-180' : ''">
+                                    <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                </div>
 
-                                {{-- Judul: Menampilkan Nama Sekolah Realtime --}}
+                                {{-- Title --}}
                                 <div class="flex flex-col">
-                                    <span class="font-bold text-gray-700 text-sm"
-                                        x-text="schoolName || 'New Education (Click to Expand)'"></span>
-                                    {{-- Subtitle kecil jika ditutup --}}
-                                    <span x-show="!expanded && schoolName" class="text-xs text-gray-500">Click to edit
-                                        details</span>
+                                    <span class="font-display font-bold text-lg uppercase tracking-wide"
+                                        x-text="schoolName || 'NEW EDUCATION'"></span>
+                                    <span x-show="!expanded" class="font-mono text-[10px] opacity-60 uppercase">Click to
+                                        edit details</span>
                                 </div>
                             </div>
 
-                            {{-- Tombol Remove (Stop propagation agar tidak men-trigger accordion) --}}
+                            {{-- Remove Button --}}
                             <button type="button" wire:click="removeEducation({{ $index }})" @click.stop
-                                class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition"
-                                title="Remove">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </svg>
+                                class="p-2 border-2 border-transparent hover:border-red-500 hover:bg-red-500 hover:text-white transition-colors"
+                                :class="expanded ? 'text-gray-400 hover:border-white' : 'text-gray-400'">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
                             </button>
                         </div>
 
-                        {{-- BODY ACCORDION (Form Input) --}}
-                        <div x-show="expanded" x-collapse class="p-4 border-t border-gray-200 bg-white">
-                            <div class="grid grid-cols-2 gap-4">
+                        {{-- ACCORDION BODY --}}
+                        <div x-show="expanded" x-collapse class="p-6 bg-white">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                                {{-- Input School --}}
-                                <div class="col-span-2 md:col-span-1">
-                                    <label class="text-xs font-semibold text-gray-500 mb-1 block">School
-                                        / University</label>
-                                    <input type="text" x-model="schoolName" {{-- Pakai x-model ke variable alpine biar judul update realtime --}}
+                                {{-- School --}}
+                                <div class="md:col-span-2">
+                                    <label class="block font-mono font-bold text-xs uppercase mb-2">School /
+                                        University</label>
+                                    <input type="text" x-model="schoolName"
                                         wire:model="educations.{{ $index }}.school"
                                         placeholder="Ex: Harvard University"
-                                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                                        class="w-full bg-white border-2 border-black p-3 font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                 </div>
 
-                                {{-- Input Degree --}}
-                                <div class="col-span-2 md:col-span-1">
-                                    <label class="text-xs font-semibold text-gray-500 mb-1 block">Degree</label>
+                                {{-- Degree --}}
+                                <div>
+                                    <label class="block font-mono font-bold text-xs uppercase mb-2">Degree /
+                                        Major</label>
                                     <input type="text" wire:model="educations.{{ $index }}.degree"
                                         placeholder="Ex: Bachelor of Science"
-                                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                                        class="w-full bg-white border-2 border-black p-3 font-medium focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                 </div>
 
-                                {{-- Input Location --}}
-                                <div class="col-span-2">
-                                    <label class="text-xs font-semibold text-gray-500 mb-1 block">Location</label>
+                                {{-- Location --}}
+                                <div>
+                                    <label class="block font-mono font-bold text-xs uppercase mb-2">City,
+                                        Country</label>
                                     <input type="text" wire:model="educations.{{ $index }}.location"
-                                        placeholder="Ex: New York, USA"
-                                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                                        placeholder="Ex: Boston, USA"
+                                        class="w-full bg-white border-2 border-black p-3 font-medium focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                 </div>
 
                                 {{-- Date Selectors --}}
-                                <div class="col-span-2 md:col-span-1">
+                                <div>
                                     <x-date-selector wire:model="educations.{{ $index }}.year_start"
                                         label="Start Date" :with-day="false" />
                                 </div>
-
-                                <div class="col-span-2 md:col-span-1">
+                                <div>
                                     <x-date-selector wire:model="educations.{{ $index }}.year_end"
-                                        label="End Date" :with-day="false" />
+                                        label="End Date (Or Expected)" :with-day="false" />
                                 </div>
+
                             </div>
                         </div>
-
                     </div>
                 @endforeach
             </div>
         </div>
 
-        {{-- experience --}}
-        <div class="mb-8">
-            {{-- Header Section --}}
-            <div class="flex justify-between items-center mb-4">
-                <h4 class="text-xl font-semibold text-gray-700">Work Experience</h4>
+        {{-- Separator Line --}}
+        <div class="border-t-2 border-black border-dashed"></div>
+
+        {{-- ===================================================
+         SECTION 2: WORK EXPERIENCE
+         =================================================== --}}
+        <div>
+            {{-- Section Header --}}
+            <div class="flex justify-between items-end mb-6">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 bg-accent-blue text-white flex items-center justify-center border-2 border-black">
+                        <i data-lucide="briefcase" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="font-display text-2xl font-bold uppercase">Work Experience</h4>
+                </div>
+
                 <button type="button" wire:click="addExperience"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                    Add Experience
+                    class="group flex items-center gap-2 px-4 py-2 bg-white border-2 border-black text-xs font-mono font-bold uppercase hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_black] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                    <span>Add New</span>
                 </button>
             </div>
 
-            <div class="space-y-3">
+            {{-- Empty State --}}
+            @if (count($experiences) === 0)
+                <div class="border-2 border-black border-dashed bg-gray-50 p-8 text-center">
+                    <p class="font-mono text-sm text-gray-500 mb-2">No work experience added.</p>
+                    <p class="font-mono text-xs text-gray-400">Fresh graduate? Skip this or add internships.</p>
+                </div>
+            @endif
+
+            <div class="space-y-4">
                 @foreach ($experiences as $index => $experience)
                     <div x-data="{
                         expanded: {{ empty($experience['company']) ? 'true' : 'false' }},
                         companyName: @entangle("experiences.{$index}.company"),
                         jobTitle: @entangle("experiences.{$index}.job_title"),
                         isPresent: @entangle("experiences.{$index}.is_present")
-                    }"
-                        class="border border-gray-200 rounded-lg bg-white shadow-sm overflow-hidden transition-all duration-200"
-                        :class="expanded ? 'ring-2 ring-blue-500 ring-opacity-50' : 'hover:border-blue-300'">
+                    }" class="border-2 border-black bg-white transition-all duration-200"
+                        :class="expanded ? 'shadow-[8px_8px_0px_0px_black] -translate-y-1' :
+                            'hover:shadow-[4px_4px_0px_0px_black] hover:-translate-y-[2px]'">
 
                         {{-- ACCORDION HEADER --}}
                         <div @click="expanded = !expanded"
-                            class="flex justify-between items-center p-4 cursor-pointer bg-gray-50 hover:bg-gray-100 transition select-none">
+                            class="flex justify-between items-center p-4 cursor-pointer select-none group"
+                            :class="expanded ? 'bg-black text-white border-b-2 border-black' : 'bg-white text-black'">
 
-                            <div class="flex items-center gap-3">
-                                {{-- Icon Chevron --}}
-                                <svg class="w-5 h-5 text-gray-500 transition-transform duration-200"
-                                    :class="expanded ? 'transform rotate-180' : ''" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7"></path>
-                                </svg>
+                            <div class="flex items-center gap-4">
+                                {{-- Chevron --}}
+                                <div class="transition-transform duration-200" :class="expanded ? 'rotate-180' : ''">
+                                    <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                </div>
 
-                                {{-- Judul: Menampilkan Company & Job Title --}}
+                                {{-- Titles --}}
                                 <div class="flex flex-col">
-                                    <span class="font-bold text-gray-700 text-sm"
-                                        x-text="companyName || 'New Experience (Click to Expand)'"></span>
+                                    <span class="font-display font-bold text-lg uppercase tracking-wide"
+                                        x-text="companyName || 'NEW EXPERIENCE'"></span>
 
-                                    {{-- Subtitle (Job Title) hanya muncul jika ada isinya --}}
-                                    <span x-show="jobTitle" class="text-xs text-gray-500" x-text="jobTitle"></span>
-                                    <span x-show="!jobTitle && !expanded" class="text-xs text-gray-400">Click to edit
-                                        details</span>
+                                    <div class="flex items-center gap-2" x-show="jobTitle">
+                                        <span class="font-mono text-xs opacity-80" x-text="jobTitle"></span>
+                                    </div>
+                                    <span x-show="!jobTitle && !expanded"
+                                        class="font-mono text-[10px] opacity-60 uppercase">Click to edit details</span>
                                 </div>
                             </div>
 
-                            {{-- Tombol Remove (@click.stop agar accordion tidak trigger) --}}
+                            {{-- Remove Button --}}
                             <button type="button" wire:click="removeExperience({{ $index }})" @click.stop
-                                class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition"
-                                title="Remove">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </svg>
+                                class="p-2 border-2 border-transparent hover:border-red-500 hover:bg-red-500 hover:text-white transition-colors"
+                                :class="expanded ? 'text-gray-400 hover:border-white' : 'text-gray-400'">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
                             </button>
                         </div>
 
-                        {{-- ACCORDION BODY (Form Input) --}}
-                        <div x-show="expanded" x-collapse class="p-4 border-t border-gray-200 bg-white">
-                            <div class="grid grid-cols-2 gap-4">
+                        {{-- ACCORDION BODY --}}
+                        <div x-show="expanded" x-collapse class="p-6 bg-white">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                                {{-- Company Name --}}
-                                <div class="col-span-2 md:col-span-1">
-                                    <label class="text-xs font-semibold text-gray-500 mb-1 block">Company
+                                {{-- Company --}}
+                                <div>
+                                    <label class="block font-mono font-bold text-xs uppercase mb-2">Company
                                         Name</label>
                                     <input type="text" x-model="companyName"
                                         wire:model="experiences.{{ $index }}.company"
                                         placeholder="Ex: Google Inc"
-                                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                                        class="w-full bg-white border-2 border-black p-3 font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                 </div>
 
                                 {{-- Job Title --}}
-                                <div class="col-span-2 md:col-span-1">
-                                    <label class="text-xs font-semibold text-gray-500 mb-1 block">Job
-                                        Title</label>
+                                <div>
+                                    <label class="block font-mono font-bold text-xs uppercase mb-2">Job Title</label>
                                     <input type="text" x-model="jobTitle"
                                         wire:model="experiences.{{ $index }}.job_title"
-                                        placeholder="Ex: Senior Web Developer"
-                                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                                        placeholder="Ex: Senior Developer"
+                                        class="w-full bg-white border-2 border-black p-3 font-medium focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                 </div>
 
                                 {{-- Location --}}
-                                <div class="col-span-2">
-                                    <label class="text-xs font-semibold text-gray-500 mb-1 block">Location</label>
+                                <div class="md:col-span-2">
+                                    <label class="block font-mono font-bold text-xs uppercase mb-2">Location</label>
                                     <input type="text" wire:model="experiences.{{ $index }}.location"
                                         placeholder="Ex: Jakarta, Indonesia"
-                                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                                        class="w-full bg-white border-2 border-black p-3 font-medium focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                 </div>
 
-                                {{-- Dates Section --}}
-                                <div class="col-span-2 grid grid-cols-2 gap-4 border-t border-gray-100 pt-3 mt-1">
+                                {{-- Dates --}}
+                                <div class="md:col-span-2 border-2 border-black border-dashed p-4 bg-gray-50">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <label class="font-mono font-bold text-xs uppercase">Employment Period</label>
 
-                                    {{-- Start Date --}}
-                                    <div>
-                                        <label class="text-xs font-semibold text-gray-500 mb-1 block">Start
-                                            Date</label>
-                                        <input type="date" wire:model="experiences.{{ $index }}.start_date"
-                                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-gray-600">
-                                    </div>
-
-                                    {{-- End Date --}}
-                                    <div class="relative">
-                                        <label class="text-xs font-semibold text-gray-500 mb-1 block">End
-                                            Date</label>
-
-                                        {{-- Logic Disable: Jika isPresent true, input end_date disable --}}
-                                        <input type="date" wire:model="experiences.{{ $index }}.end_date"
-                                            :disabled="isPresent"
-                                            :class="isPresent ? 'bg-gray-100 text-gray-400 cursor-not-allowed' :
-                                                'bg-white'"
-                                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-gray-600 transition-colors">
-                                    </div>
-
-                                    {{-- Checkbox Currently Working --}}
-                                    <div class="col-span-2">
-                                        <label class="inline-flex items-center cursor-pointer">
+                                        {{-- Checkbox Present --}}
+                                        <label class="flex items-center gap-2 cursor-pointer">
                                             <input type="checkbox" x-model="isPresent"
                                                 wire:model="experiences.{{ $index }}.is_present"
-                                                class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                                            <span class="ml-2 text-sm text-gray-600 font-medium">I am
-                                                currently working here</span>
+                                                class="w-4 h-4 text-black border-2 border-black rounded-none focus:ring-0 focus:ring-offset-0">
+                                            <span class="font-mono text-xs font-bold uppercase">Currently Working
+                                                Here</span>
                                         </label>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-4">
+                                        {{-- Start Date (Native Date Picker with Brutalist Style) --}}
+                                        <div>
+                                            <label
+                                                class="block font-mono font-bold text-[10px] uppercase mb-1 text-gray-500">Start
+                                                Date</label>
+                                            <input type="date"
+                                                wire:model="experiences.{{ $index }}.start_date"
+                                                class="w-full bg-white border-2 border-black p-2 font-mono text-sm focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
+                                        </div>
+
+                                        {{-- End Date --}}
+                                        <div>
+                                            <label
+                                                class="block font-mono font-bold text-[10px] uppercase mb-1 text-gray-500">End
+                                                Date</label>
+                                            <input type="date"
+                                                wire:model="experiences.{{ $index }}.end_date"
+                                                :disabled="isPresent"
+                                                class="w-full border-2 border-black p-2 font-mono text-sm focus:outline-none transition-all"
+                                                :class="isPresent ?
+                                                    'bg-gray-200 text-gray-400 cursor-not-allowed border-gray-300' :
+                                                    'bg-white focus:shadow-[4px_4px_0px_0px_black]'">
+                                        </div>
                                     </div>
                                 </div>
 
-                                {{-- Job Description --}}
-                                <div class="col-span-2">
-                                    <label class="text-xs font-semibold text-gray-500 mb-1 block">Job
+                                {{-- Description --}}
+                                <div class="md:col-span-2">
+                                    <label class="block font-mono font-bold text-xs uppercase mb-2">Job
                                         Description</label>
-                                    <textarea wire:model="experiences.{{ $index }}.job_desk" rows="3"
-                                        placeholder="Describe your responsibilities and achievements..."
-                                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"></textarea>
+                                    <textarea wire:model="experiences.{{ $index }}.job_desk" rows="4"
+                                        placeholder="Describe your responsibilities, achievements, and tech stack used..."
+                                        class="w-full bg-white border-2 border-black p-3 font-sans text-sm leading-relaxed focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow"></textarea>
                                 </div>
 
                             </div>
                         </div>
-                        {{-- END BODY --}}
-
                     </div>
                 @endforeach
             </div>

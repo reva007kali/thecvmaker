@@ -56,7 +56,7 @@
     }">
 
     {{-- FLOATING TOOLBAR --}}
-    <div class="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
+    <div class="absolute top-2 right-10 transform -translate-x-1/2 z-20">
         <div
             class="flex items-center gap-2 bg-white/80 backdrop-blur-md border border-gray-300 px-4 py-2 rounded-full shadow-lg">
 

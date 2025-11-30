@@ -6,11 +6,21 @@
 </head>
 
 <body class="min-h-screen bg-slate-200 flex">
+
+    
     @livewire('sidebar')
+
+
     <div class="w-full p-8">
         {{ $slot }}
     </div>
 
+
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 
 </html>
