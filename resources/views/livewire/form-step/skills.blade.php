@@ -90,7 +90,7 @@
                                 <div class="md:col-span-6">
                                     <label class="block font-mono font-bold text-xs uppercase mb-2">Skill Name</label>
                                     <input type="text" x-model="name"
-                                        wire:model="hardSkills.{{ $index }}.skill_name"
+                                        wire:model.blur="hardSkills.{{ $index }}.skill_name"
                                         placeholder="e.g. Laravel, Photoshop"
                                         class="w-full bg-white border-2 border-black p-3 font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                 </div>
@@ -99,7 +99,7 @@
                                 <div class="md:col-span-4">
                                     <label class="block font-mono font-bold text-xs uppercase mb-2">Level</label>
                                     <div class="relative">
-                                        <select x-model="level" wire:model="hardSkills.{{ $index }}.level"
+                                        <select x-model="level" wire:model.blur="hardSkills.{{ $index }}.level"
                                             class="w-full bg-white border-2 border-black p-3 appearance-none font-medium focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                             <option value="">Select...</option>
                                             <option value="Beginner">Beginner</option>
@@ -116,7 +116,7 @@
                                 <div class="md:col-span-2">
                                     <label class="block font-mono font-bold text-xs uppercase mb-2">Score (1-10)</label>
                                     <div class="flex items-center gap-2 border-2 border-black p-3 bg-gray-50">
-                                        <input type="number" wire:model="hardSkills.{{ $index }}.scale"
+                                        <input type="number" wire:model.blur="hardSkills.{{ $index }}.scale"
                                             min="1" max="10"
                                             class="w-full bg-transparent font-display font-bold text-lg text-center focus:outline-none">
                                     </div>
@@ -192,14 +192,14 @@
                                 <div class="md:col-span-6">
                                     <label class="block font-mono font-bold text-xs uppercase mb-2">Skill Name</label>
                                     <input type="text" x-model="name"
-                                        wire:model="softSkills.{{ $index }}.skill_name"
+                                        wire:model.blur="softSkills.{{ $index }}.skill_name"
                                         placeholder="e.g. Leadership"
                                         class="w-full bg-white border-2 border-black p-3 font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                 </div>
                                 <div class="md:col-span-4">
                                     <label class="block font-mono font-bold text-xs uppercase mb-2">Level</label>
                                     <div class="relative">
-                                        <select x-model="level" wire:model="softSkills.{{ $index }}.level"
+                                        <select x-model="level" wire:model.blur="softSkills.{{ $index }}.level"
                                             class="w-full bg-white border-2 border-black p-3 appearance-none font-medium focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                             <option value="">Select...</option>
                                             <option value="Beginner">Beginner</option>
@@ -214,7 +214,7 @@
                                 <div class="md:col-span-2">
                                     <label class="block font-mono font-bold text-xs uppercase mb-2">Score</label>
                                     <div class="flex items-center gap-2 border-2 border-black p-3 bg-gray-50">
-                                        <input type="number" wire:model="softSkills.{{ $index }}.scale"
+                                        <input type="number" wire:model.blur="softSkills.{{ $index }}.scale"
                                             min="1" max="10"
                                             class="w-full bg-transparent font-display font-bold text-lg text-center focus:outline-none">
                                     </div>
@@ -291,14 +291,14 @@
                                     <label class="block font-mono font-bold text-xs uppercase mb-2">Language
                                         Name</label>
                                     <input type="text" x-model="name"
-                                        wire:model="languages.{{ $index }}.language"
+                                        wire:model.blur="languages.{{ $index }}.language"
                                         placeholder="e.g. English"
                                         class="w-full bg-white border-2 border-black p-3 font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                 </div>
                                 <div>
                                     <label class="block font-mono font-bold text-xs uppercase mb-2">Proficiency</label>
                                     <div class="relative">
-                                        <select x-model="level" wire:model="languages.{{ $index }}.level"
+                                        <select x-model="level" wire:model.blur="languages.{{ $index }}.level"
                                             class="w-full bg-white border-2 border-black p-3 appearance-none font-medium focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                             <option value="">Select...</option>
                                             <option value="Basic">Basic</option>

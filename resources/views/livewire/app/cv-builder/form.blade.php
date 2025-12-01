@@ -197,7 +197,7 @@
             </div>
 
             {{-- PREVIEW AREA (Hidden on Mobile) --}}
-            <div class="hidden xl:block xl:col-span-7 bg-gray-50 border-l-2 border-black relative overflow-hidden h-full flex flex-col"
+            <div class="hidden xl:block xl:col-span-7 bg-gray-50 border-l-2 border-black relative overflow-hidden h-full flex-col"
                 style="background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px;">
                 <div class="h-16 border-b border-black bg-white flex justify-between items-center px-6 flex-shrink-0">
                     <div class="flex items-center gap-4">
@@ -244,51 +244,5 @@
             initLucide();
         });
     });
-</script>
-<script>
-(function () {
-  const SCROLL_HIDE_DELAY = 900; // ms sebelum thumb nge-fade out
-  const elems = document.querySelectorAll('.custom-scrollbar');
-
-  elems.forEach(el => {
-    let timer = null;
-
-    // helper: set class .scrolling dan CSS var
-    const show = () => {
-      el.classList.add('scrolling');
-      el.style.setProperty('--thumb-opacity', '1');
-      // clear pending hide
-      if (timer) { clearTimeout(timer); timer = null; }
-    };
-
-    const hide = () => {
-      // sedikit delay supaya terasa halus
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(() => {
-        el.classList.remove('scrolling');
-        el.style.setProperty('--thumb-opacity', '0');
-      }, SCROLL_HIDE_DELAY);
-    };
-
-    // events: user scrolls
-    el.addEventListener('scroll', () => {
-      show();
-      hide();
-    }, { passive: true });
-
-    // events: kursor masuk / keluar (agar thumb muncul saat hover)
-    el.addEventListener('mouseenter', () => {
-      el.style.setProperty('--thumb-opacity', '1');
-    });
-    el.addEventListener('mouseleave', () => {
-      // kalau sedang scrolling, biarkan JS yang hide
-      if (!el.matches(':hover')) hide();
-      else hide();
-    });
-
-    // inisialisasi: sembunyikan thumb kecuali saat hover
-    el.style.setProperty('--thumb-opacity', '0');
-  });
-})();
 </script>
 

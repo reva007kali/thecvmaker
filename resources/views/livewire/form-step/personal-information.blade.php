@@ -23,7 +23,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Simple Template Card -->
                 <label class="cursor-pointer group relative">
-                    <input type="radio" wire:model.live="template_id" value="1" class="peer sr-only">
+                    <input type="radio" wire:model.blur="template_id" value="1" class="peer sr-only">
                     <div class="p-5 border-2 border-black bg-white transition-all duration-200 
                                 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_black]
                                 peer-checked:bg-black peer-checked:text-white peer-checked:shadow-[6px_6px_0px_0px_#d9f99d]">
@@ -44,7 +44,7 @@
 
                 <!-- Modern Template Card -->
                 <label class="cursor-pointer group relative">
-                    <input type="radio" wire:model.live="template_id" value="2" class="peer sr-only">
+                    <input type="radio" wire:model.blur="template_id" value="2" class="peer sr-only">
                     <div class="p-5 border-2 border-black bg-white transition-all duration-200 
                                 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_black]
                                 peer-checked:bg-accent-blue peer-checked:text-white peer-checked:shadow-[6px_6px_0px_0px_black]">
@@ -90,7 +90,7 @@
                         </div>
                     </div>
                     
-                    <input type="file" wire:model="cv_photo" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                    <input type="file" wire:model.blur="cv_photo" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
 
                     <!-- Loading State -->
                     <div wire:loading wire:target="cv_photo" class="absolute inset-0 flex items-center justify-center bg-white border-2 border-black z-20">
@@ -165,7 +165,7 @@
                 <div class="col-span-2 md:col-span-1">
                     {{-- Pastikan component x-date-selector juga menyesuaikan style jika bisa, atau bungkus div ini --}}
                     <div class="[&_input]:border-2 [&_input]:border-black [&_input]:rounded-none [&_input]:p-3 [&_input]:w-full [&_input]:focus:shadow-[4px_4px_0px_0px_black] [&_label]:font-mono [&_label]:font-bold [&_label]:text-xs [&_label]:uppercase [&_label]:mb-2">
-                        <x-date-selector label="Date of Birth" wire:model="birthdate" />
+                        <x-date-selector label="Date of Birth" wire:model.blur="birthdate" />
                     </div>
                 </div>
 
@@ -219,7 +219,7 @@
                 </button>
             </div>
 
-            <textarea wire:model.defer="summary" rows="6"
+            <textarea wire:model.blur.defer="summary" rows="6"
                 placeholder="Briefly describe your experience, superpowers, and what you bring to the table..."
                 class="w-full bg-white border-2 border-black p-4 font-sans text-sm leading-relaxed focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow"></textarea>
 

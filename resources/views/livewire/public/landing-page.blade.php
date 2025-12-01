@@ -1,15 +1,5 @@
 <div class="overflow-x-hidden">
 
-    <!-- Splash Screen -->
-    <div id="splash"
-        class="splash-screen fixed inset-0 bg-swiss-black z-[100] flex items-center justify-center text-white">
-        <div class="text-center">
-            <h1 class="font-display text-4xl md:text-6xl font-bold tracking-tighter" id="splash-text">
-                loading assets...
-            </h1>
-        </div>
-    </div>
-
     <!-- Background Grid Lines (Decorative) -->
     <div class="fixed inset-0 pointer-events-none z-0 flex justify-between px-6 container mx-auto opacity-40">
         <div class="grid-line-y left-6"></div>
@@ -49,8 +39,8 @@
                     start cooking ⚡
                 </a>
                 <button @click="mobileMenu = !mobileMenu" class="hover-trigger md:hidden p-2 z-50">
-                    <i data-feather="menu" x-show="!mobileMenu"></i>
-                    <i data-feather="x" x-show="mobileMenu" x-cloak></i>
+                    <i data-lucide="menu" x-show="!mobileMenu"></i>
+                    <i data-lucide="x" x-show="mobileMenu" x-cloak></i>
                 </button>
             </div>
         </div>

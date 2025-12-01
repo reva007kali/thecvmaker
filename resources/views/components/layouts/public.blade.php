@@ -37,7 +37,7 @@
 </head>
 
 <body class="bg-swiss-white text-swiss-black font-sans antialiased selection:bg-accent-blue selection:text-white"
-    x-data="{ mobileMenu: false }">
+    x-data="{ mobileMenu: false }" x-cloak>
 
     {{ $slot }}
 

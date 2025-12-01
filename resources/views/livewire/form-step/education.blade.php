@@ -93,7 +93,7 @@
                                     <label class="block font-mono font-bold text-xs uppercase mb-2">School /
                                         University</label>
                                     <input type="text" x-model="schoolName"
-                                        wire:model="educations.{{ $index }}.school"
+                                        wire:model.blur="educations.{{ $index }}.school"
                                         placeholder="Ex: Harvard University"
                                         class="w-full bg-white border-2 border-black p-3 font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                 </div>
@@ -102,7 +102,7 @@
                                 <div>
                                     <label class="block font-mono font-bold text-xs uppercase mb-2">Degree /
                                         Major</label>
-                                    <input type="text" wire:model="educations.{{ $index }}.degree"
+                                    <input type="text" wire:model.blur="educations.{{ $index }}.degree"
                                         placeholder="Ex: Bachelor of Science"
                                         class="w-full bg-white border-2 border-black p-3 font-medium focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                 </div>
@@ -111,18 +111,18 @@
                                 <div>
                                     <label class="block font-mono font-bold text-xs uppercase mb-2">City,
                                         Country</label>
-                                    <input type="text" wire:model="educations.{{ $index }}.location"
+                                    <input type="text" wire:model.blur="educations.{{ $index }}.location"
                                         placeholder="Ex: Boston, USA"
                                         class="w-full bg-white border-2 border-black p-3 font-medium focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                 </div>
 
                                 {{-- Date Selectors --}}
                                 <div>
-                                    <x-date-selector wire:model="educations.{{ $index }}.year_start"
+                                    <x-date-selector wire:model.blur="educations.{{ $index }}.year_start"
                                         label="Start Date" :with-day="false" />
                                 </div>
                                 <div>
-                                    <x-date-selector wire:model="educations.{{ $index }}.year_end"
+                                    <x-date-selector wire:model.blur="educations.{{ $index }}.year_end"
                                         label="End Date (Or Expected)" :with-day="false" />
                                 </div>
 
@@ -217,7 +217,7 @@
                                     <label class="block font-mono font-bold text-xs uppercase mb-2">Company
                                         Name</label>
                                     <input type="text" x-model="companyName"
-                                        wire:model="experiences.{{ $index }}.company"
+                                        wire:model.blur="experiences.{{ $index }}.company"
                                         placeholder="Ex: Google Inc"
                                         class="w-full bg-white border-2 border-black p-3 font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                 </div>
@@ -226,7 +226,7 @@
                                 <div>
                                     <label class="block font-mono font-bold text-xs uppercase mb-2">Job Title</label>
                                     <input type="text" x-model="jobTitle"
-                                        wire:model="experiences.{{ $index }}.job_title"
+                                        wire:model.blur="experiences.{{ $index }}.job_title"
                                         placeholder="Ex: Senior Developer"
                                         class="w-full bg-white border-2 border-black p-3 font-medium focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                 </div>
@@ -234,7 +234,7 @@
                                 {{-- Location --}}
                                 <div class="md:col-span-2">
                                     <label class="block font-mono font-bold text-xs uppercase mb-2">Location</label>
-                                    <input type="text" wire:model="experiences.{{ $index }}.location"
+                                    <input type="text" wire:model.blur="experiences.{{ $index }}.location"
                                         placeholder="Ex: Jakarta, Indonesia"
                                         class="w-full bg-white border-2 border-black p-3 font-medium focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                 </div>
@@ -247,7 +247,7 @@
                                         {{-- Checkbox Present --}}
                                         <label class="flex items-center gap-2 cursor-pointer">
                                             <input type="checkbox" x-model="isPresent"
-                                                wire:model="experiences.{{ $index }}.is_present"
+                                                wire:model.blur="experiences.{{ $index }}.is_present"
                                                 class="w-4 h-4 text-black border-2 border-black rounded-none focus:ring-0 focus:ring-offset-0">
                                             <span class="font-mono text-xs font-bold uppercase">Currently Working
                                                 Here</span>
@@ -261,7 +261,7 @@
                                                 class="block font-mono font-bold text-[10px] uppercase mb-1 text-gray-500">Start
                                                 Date</label>
                                             <input type="date"
-                                                wire:model="experiences.{{ $index }}.start_date"
+                                                wire:model.blur="experiences.{{ $index }}.start_date"
                                                 class="w-full bg-white border-2 border-black p-2 font-mono text-sm focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow">
                                         </div>
 
@@ -271,7 +271,7 @@
                                                 class="block font-mono font-bold text-[10px] uppercase mb-1 text-gray-500">End
                                                 Date</label>
                                             <input type="date"
-                                                wire:model="experiences.{{ $index }}.end_date"
+                                                wire:model.blur="experiences.{{ $index }}.end_date"
                                                 :disabled="isPresent"
                                                 class="w-full border-2 border-black p-2 font-mono text-sm focus:outline-none transition-all"
                                                 :class="isPresent ?
@@ -285,7 +285,7 @@
                                 <div class="md:col-span-2">
                                     <label class="block font-mono font-bold text-xs uppercase mb-2">Job
                                         Description</label>
-                                    <textarea wire:model="experiences.{{ $index }}.job_desk" rows="4"
+                                    <textarea wire:model.blur="experiences.{{ $index }}.job_desk" rows="4"
                                         placeholder="Describe your responsibilities, achievements, and tech stack used..."
                                         class="w-full bg-white border-2 border-black p-3 font-sans text-sm leading-relaxed focus:outline-none focus:shadow-[4px_4px_0px_0px_black] transition-shadow"></textarea>
                                 </div>
